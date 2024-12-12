@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 const HOST = process.env.HOST;
 const MONGODB_CONNECTION_STRING = process.env.MONGODB_CONNECTION_STRING;
 
-// app.use my routes
+app.use(express.json());
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
