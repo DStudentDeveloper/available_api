@@ -4,7 +4,7 @@ export function notFound(req, res, next) {
   next(error);
 }
 
-export function errorHandler(err, req, res) {
+export function errorHandler(err, req, res, _) {
   const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
   res.status(statusCode);
   return res.json({
