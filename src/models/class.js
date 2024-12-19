@@ -11,5 +11,8 @@ const classSchema = new Schema(
   { timestamps: true }
 );
 
+classSchema.set('toJSON', { virtuals: true });
+classSchema.set('toObject', { virtuals: true });
+
 const Class = model('Class', classSchema);
 export default Class;
