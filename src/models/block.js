@@ -7,6 +7,8 @@ const blockSchema = new Schema(
   },
   { timestamps: true }
 );
+blockSchema.set('toJSON', { virtuals: true });
+blockSchema.set('toObject', { virtuals: true });
 
 const Block = model('Block', blockSchema);
 export default Block;
