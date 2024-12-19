@@ -10,21 +10,18 @@ const bookingSchema = new Schema(
     },
     timeRange: {
       start: { type: Date, required: true },
-      end: Date,
+      end: {
+        type: Date,
+        default: function () {
+          return new Date(this.timeRange.start.getTime() + 60 * 60 * 1000); // Default to 1 hour later
+        },
+      },
     },
     course: String,
     level: String,
   },
   { timestamps: true }
 );
-
-bookingSchema.pre('save', async function () {
-  if (!this.timeRange.end) {
-    this.timeRange.end = new Date(
-      this.timeRange.start.getTime() + 60 * 60 * 1000
-    ); // Default 1 hour
-  }
-});
 
 bookingSchema.post('remove', async function () {
   const classItem = await Class.findById(this.class);
