@@ -39,5 +39,8 @@ bookingSchema.post('remove', async function () {
   }
 });
 
+bookingSchema.set('toJSON', { virtuals: true });
+bookingSchema.set('toObject', { virtuals: true });
+
 const Booking = model('Booking', bookingSchema);
 export default Booking;
