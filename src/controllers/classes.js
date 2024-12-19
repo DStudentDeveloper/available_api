@@ -1,9 +1,41 @@
-import Class from '../models/class';
+import Class from '../models/class.js';
 import createHttpError from 'http-errors';
+import Block from '../models/block.js';
 
-export async function getClasses(req, res, next) {
+export async function createClass(req, res, next) {
+  const { blockId, code } = req.body;
+
+  if (!blockId || !code) {
+    return next(
+      createHttpError(400, 'Missing required fields: classId, blockId, code')
+    );
+  }
+
   try {
-    const classes = await Class.find().populate('block', 'code');
+    const block = await Block.findById(blockId);
+    if (!block) return next(createHttpError(404, 'Block not found'));
+
+    const class_ = new Class({
+      block: blockId,
+      code,
+      fullCode: `${block.code} ${code}`,
+    });
+
+    await class_.save();
+    block.classes.push(class_._id);
+    await block.save();
+    return res.status(201).json(class_);
+  } catch (error) {
+    console.trace(error);
+    next(error);
+  }
+}
+
+export async function getAllClasses(req, res, next) {
+  try {
+    const classes = await Class.find()
+      .populate('block', 'code')
+      .sort({ code: 1 });
     if (!classes) return next(createHttpError(404, 'Classes not found'));
 
     return res.json(classes);
@@ -36,10 +68,10 @@ export async function getClassBookings(req, res, next) {
     const class_ = await Class.findById(id).populate({
       path: 'bookings',
       match: { 'timeRange.end': { $gte: new Date() } },
-      select: 'timeRange, level, course',
+      select: 'timeRange level course',
       populate: {
         path: 'class',
-        select: 'code, fullCode, isAvailable',
+        select: 'code fullCode',
         populate: { path: 'block', select: 'code' },
       },
     });

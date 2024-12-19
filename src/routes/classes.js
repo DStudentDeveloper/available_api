@@ -1,13 +1,15 @@
 import { Router } from 'express';
 import {
+  createClass,
   getClassById,
-  getClasses,
+  getAllClasses,
   getClassBookings,
 } from '../controllers/classes.js';
 
 const router = Router();
 
-router.get('/', getClasses);
+router.post('/', createClass);
+router.get('/', getAllClasses);
 router.get('/:id', getClassById);
 router.get('/:id/bookings', getClassBookings);
 
