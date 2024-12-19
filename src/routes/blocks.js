@@ -1,9 +1,16 @@
 import { Router } from 'express';
-import { getBlockById, getBlocks } from '../controllers/blocks.js';
+import {
+  createBlock,
+  getBlockById,
+  getBlocks,
+  getBlockClasses,
+} from '../controllers/blocks.js';
 
 const router = Router();
 
+router.post('/', createBlock);
 router.get('/', getBlocks);
 router.get('/:id', getBlockById);
+router.get('/:id/classes', getBlockClasses);
 
 export default router;
