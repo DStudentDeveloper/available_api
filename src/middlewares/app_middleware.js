@@ -8,7 +8,7 @@ export function errorHandler(err, req, res, _) {
   const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
   res.status(statusCode);
   return res.json({
-    message: err.message,
+    message: err.message || 'Something went wrong',
     stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack,
   });
 }
