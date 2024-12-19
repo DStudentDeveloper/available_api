@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import Class from './class';
+import Class from './class.js';
 
 const bookingSchema = new Schema(
   {
