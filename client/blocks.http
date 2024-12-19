@@ -1,0 +1,19 @@
+### GET Blocks
+# @name=GetAllBlocks
+GET {{ host }}/{{ api }}/blocks
+
+### GET Block
+# @name=GetBlockById
+GET {{ host }}/{{ api }}/blocks/:id
+
+### GET Classes
+# @name=GetBlockClasses
+GET {{ host }}/{{ api }}/blocks/675c0c4706cf29e3a5d65559/classes
+
+
+### POST Block
+# @name=CreateBlock
+POST {{ host }}/{{ api }}/blocks
+Content-Type: application/json; charset=utf-8
+
+{ "code":  "B" }

@@ -1,0 +1,21 @@
+### GET Classes
+# @name=GetAllClasses
+GET {{ host }}/{{ api }}/classes
+
+### GET Class
+# @name=GetClassById
+GET {{ host }}/{{ api }}/classes/:id
+
+### GET Class Bookings
+# @name=GetValidBookingsForClass
+GET {{ host }}/{{ api }}/classes/675c11942e2269f55555f319/bookings
+
+### POST Class
+# @name=CreateClass
+POST {{ host }}/{{ api }}/classes
+Content-Type: application/json; charset=utf-8
+
+{
+  "code": "202",
+  "blockId": "675c0c4b06cf29e3a5d6555b"
+}

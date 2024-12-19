@@ -1,0 +1,30 @@
+### POST Booking
+# @name=BookClass
+POST {{ host }}/{{ api }}/bookings
+Content-Type: application/json; charset=utf-8
+
+{
+  "timeRange": {
+    "start": "2024-12-16T22:00:43.518",
+    "end": "2024-12-16T22:08:43.518"
+  },
+  "classId": "675c11942e2269f55555f319",
+  "course": "Information Technology",
+  "level": "Level 300"
+}
+
+### PATCH Booking
+# @name=UpdateBooking
+PATCH {{ host }}/{{ api }}/bookings/676377b8effe9e1c869395fe
+Content-Type: application/json; charset=utf-8
+
+{
+  "timeRange": {
+    "start": "2024-12-19T15:00:00.000Z",
+    "end": "2024-12-19T18:00:00.000Z"
+  }
+}
+
+### DELETE Booking
+# @name=CancelClass
+DELETE {{ host }}/{{ api }}/bookings/676377b8effe9e1c869395fe
