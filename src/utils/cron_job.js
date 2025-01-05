@@ -27,6 +27,6 @@ export default function setupCronJobs(io) {
       await notifyBookingChange(io, classItem._id);
     }
 
-    console.log(`${expiredBookings.length} expired bookings cleaned.`);
+    console.log(`${expiredBookings.length} expired bookings cleaned.`, new Date());
   });
 }
