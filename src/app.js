@@ -11,6 +11,7 @@ import feedbackRouter from './routes/feedback.js';
 import morgan from 'morgan';
 import socketInit from './sockets/class_socket.js';
 import setupCronJobs from './utils/cron_job.js';
+import cors from 'cors';
 
 configDotenv();
 
@@ -21,9 +22,21 @@ const PORT = process.env.PORT;
 const HOST = process.env.HOST;
 const API_URL = process.env.API_URL;
 const MONGODB_CONNECTION_STRING = process.env.MONGODB_CONNECTION_STRING;
+const WHITELISTED_DOMAINS = process.env.WHITELISTED_DOMAINS?.split(',') || [];
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (WHITELISTED_DOMAINS.some((domain) => domain.trim() === origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  })
+);
 app.use((req, res, next) => {
   req.io = io;
   next();
